@@ -58,6 +58,7 @@ end
 
 function int2buf(n)
     -- only trans 32bit  full is 64bit
+    -- ngx.log(ngx.DEBUG,n)
     return string.rep("\00", 4) .. string.char(bit.band(bit.rshift(n, 24), 0xff), bit.band(bit.rshift(n, 16), 0xff), bit.band(bit.rshift(n, 8), 0xff), bit.band(n, 0xff))
 end
 
@@ -460,8 +461,12 @@ function query_download_storage(self, fileid)
         local group_name = fileid:sub(1, pos-1)
         local file_name  = fileid:sub(pos + 1)
         local res = self:query_download_storage_ex(group_name, file_name)
-        res.file_name = file_name
-        return res
+	if not res then
+	   return nil
+        else
+           res.file_name = file_name
+           return res
+	end
     end
 end
 

@@ -41,24 +41,35 @@ end
 if not file_exists(originalFile) then
     local fileid = string.sub(originalUri, 2);
     -- main
+    local bit = require('bit')
     local fastdfs = require('restyfastdfs')
     local fdfs = fastdfs:new()
-    fdfs:set_tracker("192.168.1.113", 22122)
     fdfs:set_timeout(1000)
     fdfs:set_tracker_keepalive(0, 100)
     fdfs:set_storage_keepalive(0, 100)
-    local data = fdfs:do_download(fileid)
-    if data then
-       -- check image dir
-        if not is_dir(ngx.var.image_dir) then
-            os.execute("mkdir -p " .. ngx.var.image_dir)
-        end
-        writefile(originalFile, data)
+
+    local tracker_list = {"10.4.27.59","10.4.27.60","10.4.27.78"}
+    for NUMBER,IP in pairs(tracker_list) do
+        fdfs:set_tracker(IP, 22122)
+            local data = fdfs:do_download(fileid)
+            if data then
+               -- check image dir
+                if not is_dir(ngx.var.image_dir) then
+                    os.execute("mkdir -p " .. ngx.var.image_dir)
+                end
+                writefile(originalFile, data)
+	    	ngx.log(ngx.DEBUG,"tracker connect:",IP)
+                break	
+            end
+	    ngx.log(ngx.ERR,"tracker not connect:",IP)
+	    if NUMBER == table.getn(tracker_list) then
+            	ngx.exit(502)
+	    end
     end
 end
 
 -- 创建缩略图
-local image_sizes = {"80x80", "800x600", "40x40", "60x60"};  
+local image_sizes = {"80x80", "800x600", "40x40", "60x60", "1000x1000"};  
 function table.contains(table, element)  
     for _, value in pairs(table) do  
         if value == element then
