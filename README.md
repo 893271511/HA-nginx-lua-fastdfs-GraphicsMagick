@@ -17,3 +17,16 @@ fastdfs开源的分布式文件系统，此脚本利用nginx lua模块，动态�
 3. [https://github.com/azurewang/lua-resty-fastdfs](https://github.com/azurewang/lua-resty-fastdfs)
 4. [http://rhomobi.com/topics/23](http://rhomobi.com/topics/23)
 5. [http://bbs.chinaunix.net/thread-4133106-1-1.html](http://bbs.chinaunix.net/thread-4133106-1-1.html)
+
+
+安装：
+CentOS release 6.7 (Final)
+Linux 2.6.32-573.26.1.el6.x86_64
+
+http://bitop.luajit.org/download.html
+tar xf LuaBitOp-1.0.2.tar.gz
+cd LuaBitOp-1.0.2
+make
+make intall
+ll /usr/lib64/lua/5.1/bit.so 
+yum -y install GraphicsMagick GraphicsMagick-devel
