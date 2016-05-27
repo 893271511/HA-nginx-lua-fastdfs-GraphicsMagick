@@ -24,10 +24,10 @@ fastdfs开源的分布式文件系统，此脚本利用nginx lua模块，动态�
 CentOS release 6.7 (Final)
 Linux 2.6.32-573.26.1.el6.x86_64
 
-http://bitop.luajit.org/download.html
-tar xf LuaBitOp-1.0.2.tar.gz
-cd LuaBitOp-1.0.2
-make
-make intall
-ll /usr/lib64/lua/5.1/bit.so 
-yum -y install GraphicsMagick GraphicsMagick-devel
+1. http://bitop.luajit.org/download.html
+2. tar xf LuaBitOp-1.0.2.tar.gz
+3. cd LuaBitOp-1.0.2
+4. make
+5. make intall
+6. ll /usr/lib64/lua/5.1/bit.so 
+7. yum -y install GraphicsMagick GraphicsMagick-devel
